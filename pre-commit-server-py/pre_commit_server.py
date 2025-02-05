@@ -1,11 +1,19 @@
-#!$HOME/.venv/tools3/bin/python3
+#!/usr/bin/env python3
 
+"""MCP server implementation for running pre-commit hooks.
+
+This module provides a server that integrates with Model Context Protocol (MCP)
+to enable running pre-commit hooks and managing spell check dictionaries.
+"""
+
+import asyncio
 import json
 import subprocess
+import sys
 from typing import Any, Dict, List, Optional
 
+from mcp import transport as mcp_transport
 from mcp.server import Server
-from mcp import transport
 from mcp.types import (
     CallToolRequestSchema,
     ErrorCode,
@@ -13,36 +21,46 @@ from mcp.types import (
     McpError,
 )
 
+
 class PreCommitServer:
+    """Server for managing pre-commit hooks and spell check dictionaries via MCP."""
+
     def __init__(self):
+        """Initialize PreCommitServer with default configuration."""
         self.server = Server(
-            name="pre-commit-server",
-            version="0.1.0",
-            capabilities={
-                "tools": {}
-            }
+            name="pre-commit-server", version="0.1.0", capabilities={"tools": {}}
         )
         self._setup_handlers()
 
     def _setup_handlers(self):
+        """Set up request handlers for the MCP server."""
+
         @self.server.request_handler(ListToolsRequestSchema)
         async def handle_list_tools(request):
             return {
                 "tools": [
                     {
                         "name": "run_checks",
-                        "description": "Run pre-commit checks on specified files or all files",
+                        "description": (
+                            "Run pre-commit checks on specified files or all files"
+                        ),
                         "inputSchema": {
                             "type": "object",
                             "properties": {
                                 "hook": {
                                     "type": "string",
-                                    "description": "Specific hook to run (e.g., 'cspell', 'stylua'). Leave empty to run all hooks.",
+                                    "description": (
+                                        "Specific hook to run (e.g., 'cspell', 'stylua'). "
+                                        "Leave empty to run all hooks."
+                                    ),
                                 },
                                 "files": {
                                     "type": "array",
                                     "items": {"type": "string"},
-                                    "description": "List of files to check. Leave empty to check all files.",
+                                    "description": (
+                                        "List of files to check. "
+                                        "Leave empty to check all files."
+                                    ),
                                 },
                                 "fix": {
                                     "type": "boolean",
@@ -82,11 +100,18 @@ class PreCommitServer:
                 return await self._add_words(request.params.arguments)
             else:
                 raise McpError(
-                    ErrorCode.MethodNotFound,
-                    f"Unknown tool: {request.params.name}"
+                    ErrorCode.MethodNotFound, f"Unknown tool: {request.params.name}"
                 )
 
     async def _run_checks(self, args: Dict[str, Any]):
+        """Run pre-commit checks on specified files.
+
+        Args:
+            args: Dictionary containing hook name, files list, and fix flag.
+
+        Returns:
+            Dictionary containing check results and any error information.
+        """
         hook: Optional[str] = args.get("hook")
         files: List[str] = args.get("files", [])
         fix: bool = args.get("fix", False)
@@ -102,35 +127,30 @@ class PreCommitServer:
             cmd.append("--all-files")
 
         try:
-            process = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                check=True
-            )
+            process = subprocess.run(cmd, capture_output=True, text=True, check=True)
             return {
-                "content": [
-                    {
-                        "type": "text",
-                        "text": process.stdout + process.stderr
-                    }
-                ]
+                "content": [{"type": "text", "text": process.stdout + process.stderr}]
             }
         except subprocess.CalledProcessError as e:
             return {
-                "content": [
-                    {
-                        "type": "text",
-                        "text": e.stdout + e.stderr
-                    }
-                ],
-                "isError": True
+                "content": [{"type": "text", "text": e.stdout + e.stderr}],
+                "isError": True,
             }
 
     async def _add_words(self, args: Dict[str, Any]):
+        """Add words to the cspell dictionary.
+
+        Args:
+            args: Dictionary containing words to add and target language.
+
+        Returns:
+            Dictionary containing operation result and any error information.
+        """
         words: List[str] = args["words"]
         language: str = args.get("language", "en")
-        dictionary_file = ".cspell-pt-br.json" if language == "pt-BR" else ".cspell.json"
+        dictionary_file = (
+            ".cspell-pt-br.json" if language == "pt-BR" else ".cspell.json"
+        )
 
         try:
             with open(dictionary_file, "r") as f:
@@ -148,40 +168,28 @@ class PreCommitServer:
                     json.dump(dictionary, f, indent=2)
 
                 return {
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": f"Added {len(new_words)} new words to {dictionary_file}"
-                        }
-                    ]
+                    "content": [{
+                        "type": "text",
+                        "text": f"Added {len(new_words)} new words to {dictionary_file}",
+                    }]
                 }
             else:
-                return {
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": "No new words to add"
-                        }
-                    ]
-                }
+                return {"content": [{"type": "text", "text": "No new words to add"}]}
         except Exception as e:
             return {
                 "content": [
-                    {
-                        "type": "text",
-                        "text": f"Error updating dictionary: {str(e)}"
-                    }
+                    {"type": "text", "text": f"Error updating dictionary: {str(e)}"}
                 ],
-                "isError": True
+                "isError": True,
             }
 
     async def run(self):
-        transport = transport.create_stdio_transport()
-        await self.server.connect(transport)
+        """Start the MCP server using stdio transport."""
+        stdio_transport = mcp_transport.create_stdio_transport()
+        await self.server.connect(stdio_transport)
         print("Pre-commit MCP server running on stdio", file=sys.stderr)
 
+
 if __name__ == "__main__":
-    import asyncio
-    import sys
     server = PreCommitServer()
     asyncio.run(server.run())
