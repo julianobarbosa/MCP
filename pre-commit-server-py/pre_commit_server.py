@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/home/barbosa/.venv/tools3/bin/python
 
 """MCP server implementation for running pre-commit hooks.
 
