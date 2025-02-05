@@ -12,7 +12,7 @@ import subprocess
 import sys
 from typing import Any, Dict, List, Optional
 
-from mcp.sdk.server.transport import create_stdio_transport
+from mcp.server.transport import create_stdio_transport
 from mcp.server import Server
 from mcp.types import (
     CallToolRequestSchema,
