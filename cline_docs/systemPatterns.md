@@ -1,11 +1,6 @@
 # System Patterns
 
-##  For spell-checking
-### Code Organization
-1. Single server class pattern (`PreCommitServer`)
-2. Separation of tool handlers into distinct methods
-3. Consistent error handling and response formatting
-
+## General MCP Server Patterns
 ### Request Handler Pattern
 ```python
 @server.request_handler(SchemaType)
@@ -20,6 +15,18 @@ async def handle_request(request):
         "isError": bool  # optional
     }
 ```
+
+### Error Handling Pattern
+1. Try-except blocks around operations
+2. Return standardized error responses
+3. Include relevant error details
+4. Proper error categorization
+
+## Pre-Commit Server (Python)
+### Code Organization
+1. Single server class pattern (`PreCommitServer`)
+2. Separation of tool handlers into distinct methods
+3. Consistent error handling and response formatting
 
 ### Tool Implementation Pattern
 1. Input Schema Definition:

@@ -1,6 +1,9 @@
 # Active Context
 
-##  For spell-checking
+## MCP Servers Overview
+Current focus is on implementing and improving various MCP servers to enhance the MCP ecosystem's capabilities.
+
+## Pre-Commit Server (Python)
 ### Current State
 The pre-commit server is operational and provides two main tools:
 1. `run_checks` - For executing pre-commit hooks
@@ -28,3 +31,6 @@ Potential improvements:
    - Hook status reporting
    - Performance metrics
    - Caching mechanisms for dictionary operations
+
+## Next MCP Servers
+Planning phase for additional servers to further extend MCP capabilities.

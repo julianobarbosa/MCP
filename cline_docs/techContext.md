@@ -1,12 +1,18 @@
 # Technical Context
 
-## Technologies Used
+## General MCP Server Requirements
+- MCP SDK must be available
+- Servers run on stdio transport only
+- Execute permissions required for server scripts
+
+## Pre-Commit Server (Python)
+
+### Technologies Used
 - Python 3.x
 - MCP SDK (`mcp[cli]`)
 - pre-commit >= 3.5.0
 
-## Development Setup
-###  For spell-checking
+### Development Setup
 1. Python environment with required dependencies:
    ```
    mcp[cli]
@@ -33,7 +39,7 @@
    - Invalid JSON
    - File access errors
 
-## Architecture Decisions
+### Architecture Decisions
 1. Uses async/await for operation handling
 2. Implements stdio transport for MCP communication
 3. Uses subprocess for pre-commit execution

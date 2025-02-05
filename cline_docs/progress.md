@@ -1,6 +1,12 @@
 # Progress Status
 
-##  For spell-checking
+## Overall MCP Project
+### Status
+- Number of Implemented Servers: 1
+- Number of Planned Servers: TBD
+- Overall Project Progress: Initial Phase
+
+## Pre-Commit Server (Python)
 ### What Works
 1. Core Server Functionality
    - [x] Server initialization and configuration
@@ -45,7 +51,7 @@
    - [ ] Hook execution optimization
    - [ ] Response streaming for large outputs
 
-### Progress Status
+### Implementation Progress
 - Core Functionality: 100%
 - Pre-commit Integration: 100%
 - Dictionary Management: 100%
@@ -54,4 +60,4 @@
 - Advanced Error Handling: 0%
 - Optimization: 0%
 
-Overall Progress: ~50%
+Overall Server Progress: ~50%
