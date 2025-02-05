@@ -12,7 +12,7 @@ import subprocess
 import sys
 from typing import Any, Dict, List, Optional
 
-from mcp import transport as mcp_transport
+from mcp.sdk.server.transport import create_stdio_transport
 from mcp.server import Server
 from mcp.types import (
     CallToolRequestSchema,
@@ -185,7 +185,7 @@ class PreCommitServer:
 
     async def run(self):
         """Start the MCP server using stdio transport."""
-        stdio_transport = mcp_transport.create_stdio_transport()
+        stdio_transport = create_stdio_transport()
         await self.server.connect(stdio_transport)
         print("Pre-commit MCP server running on stdio", file=sys.stderr)
 
