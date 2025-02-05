@@ -43,7 +43,12 @@ repos:
     rev: 24.1.1
     hooks:
     -   id: black
-        args: ['--config', 'pyproject.toml']
+        args: [
+            '--config', 'pyproject.toml',
+            '--preview',
+            '--force-single-line-imports',
+            '--line-length=88'
+        ]
 
 -   repo: https://github.com/zricethezav/gitleaks
     rev: v8.23.3
