@@ -1,0 +1,12 @@
+[flake8]
+max-line-length = 88
+extend-ignore = E203
+max-complexity = 10
+docstring-convention = google
+exclude = .git,__pycache__,build,dist
+per-file-ignores =
+    # Allow missing docstrings in tests
+    test_*.py: D100,D101,D102,D103
+select = C,E,F,W,B,S,D,A,N,C4,SIM
+# Enable flake8-bugbear warnings
+extend-select = B9
