@@ -64,7 +64,9 @@ class PreCommitServer:
                                 },
                                 "fix": {
                                     "type": "boolean",
-                                    "description": "Attempt to automatically fix issues when possible",
+                                    "description": (
+                                        "Attempt to automatically fix issues when possible"
+                                    ),
                                 },
                             },
                         },
@@ -82,7 +84,9 @@ class PreCommitServer:
                                 },
                                 "language": {
                                     "type": "string",
-                                    "description": "Target language dictionary (e.g., 'en', 'pt-BR')",
+                                    "description": (
+                                        "Target language dictionary (e.g., 'en', 'pt-BR')"
+                                    ),
                                     "default": "en",
                                 },
                             },
@@ -168,10 +172,14 @@ class PreCommitServer:
                     json.dump(dictionary, f, indent=2)
 
                 return {
-                    "content": [{
-                        "type": "text",
-                        "text": f"Added {len(new_words)} new words to {dictionary_file}",
-                    }]
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": (
+                                f"Added {len(new_words)} new words to {dictionary_file}"
+                            ),
+                        }
+                    ]
                 }
             else:
                 return {"content": [{"type": "text", "text": "No new words to add"}]}
