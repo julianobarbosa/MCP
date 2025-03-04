@@ -68,7 +68,7 @@
        ```bash
        # Directly with command line
        mcp install server.py -v API_KEY=key
-       
+
        # Or in settings.json
        {
          "mcpServers": {
