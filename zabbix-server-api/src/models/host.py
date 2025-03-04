@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional, List, Dict
 
+
 @dataclass
 class Host:
     host: str
@@ -11,12 +12,12 @@ class Host:
     hostid: Optional[str] = None
 
     @classmethod
-    def from_api_response(cls, data: dict) -> 'Host':
+    def from_api_response(cls, data: dict) -> "Host":
         return cls(
-            hostid=data.get('hostid'),
-            host=data.get('host'),
-            name=data.get('name'),
-            status=data.get('status'),
-            interfaces=data.get('interfaces'),
-            groups=data.get('groups')
+            hostid=data.get("hostid"),
+            host=data.get("host"),
+            name=data.get("name"),
+            status=data.get("status"),
+            interfaces=data.get("interfaces"),
+            groups=data.get("groups"),
         )
