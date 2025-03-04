@@ -1,0 +1,9 @@
+# Project Patterns
+- Docker-centric repository for shared web configurations
+- PHP 8.2 + Apache standardization
+- Centralized configuration management approach
+- All shared settings must be version controlled
+- Documentation in English, code comments in English
+- Uses Makefile for build automation
+- Configuration inheritance pattern (projects inherit from base)
+- Focus on maintainability and standardization
