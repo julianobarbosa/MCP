@@ -1,16 +1,18 @@
 {
-    "version": "0.2",
-    "language": "pt-BR",
-    "words": [
-      "stylua",
-      "nvim",
-      "luarocks",
-      "luacheck",
-      "luacheckrc",
-      "pyproject",
-      "renovaterc",
-      "Morganz"
-    ],
-    "flagWords": [],
-    "ignoreWords": []
-  }
+  "version": "0.2",
+  "language": "pt-BR",
+  "words": [
+    "stylua",
+    "nvim",
+    "luarocks",
+    "luacheck",
+    "luacheckrc",
+    "pyproject",
+    "renovaterc",
+    "Morganz"
+  ],
+  "flagWords": [],
+  "ignoreWords": [
+    "hostid"
+  ]
+}
