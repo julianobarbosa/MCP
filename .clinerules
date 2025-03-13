@@ -109,7 +109,7 @@ If ANY answer is "no", I MUST NOT use attempt_completion.
 Only after ALL tools have been tested can attempt_completion be used.
 
 ## Key Requirements
-- ✓ Must use MCP SDK
+- ✓ Must use Python MCP SDK
 - ✓ Must have comprehensive logging
 - ✓ Must test each tool individually
 - ✓ Must handle errors gracefully
