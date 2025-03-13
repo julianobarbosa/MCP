@@ -1,0 +1,93 @@
+## Azure DevOps MCP Server Project TODO List (Granular Daily Tasks)
+
+### Task Structure
+- Each task is designed to take **one day or less** to complete.
+- All tasks follow the TDD workflow naturally: writing failing tests, code until they pass, and refactoring are part of one continuous process.
+- Documentation is still handled as a separate step for clarity.
+- Tasks are prefixed with `[ ]` for tracking completion.
+
+---
+
+- [ ] **Task 0.10**: Fix integration tests in CI environment
+  - **Role**: Full-Stack Developer
+  - **Description**: Configure integration tests to work in CI environment by properly handling credentials and environment setup
+- [ ] **Task 0.11**: Document project setup and authentication (README)
+  - **Role**: Technical Writer
+- [ ] **Task 1.2**: Implement `list_organizations` using Axios with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 1.4**: Implement `list_projects` using WebApi with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 1.6**: Implement `list_repositories` using WebApi with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 1.8**: Document core navigation tools (usage, parameters)
+  - **Role**: Technical Writer
+- [ ] **Task 2.2**: Implement `create_work_item` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 2.4**: Implement `update_work_item` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 2.6**: Implement `list_work_items` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 2.8**: Implement `get_work_item` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 2.10**: Implement `add_work_item_comment` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 2.13**: Refactor work item tools for consistency (with regression tests)
+  - **Role**: Full-Stack Developer
+- [ ] **Task 2.14**: Document work item tools (usage, examples)
+  - **Role**: Technical Writer
+- [ ] **Task 2.15**: Conduct code review and address feedback
+  - **Role**: Full-Stack Developer
+- [ ] **Task 3.2**: Implement `create_or_update_file` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 3.4**: Implement `push_changes` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 3.6**: Implement `get_file_contents` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 3.8**: Document repository tools (usage, parameters)
+  - **Role**: Technical Writer
+- [ ] **Task 4.2**: Implement `create_branch` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 4.4**: Implement `create_pull_request` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 4.6**: Implement `merge_pull_request` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 4.8**: Implement `get_pull_request` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 4.10**: Implement `list_pull_requests` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 4.12**: Implement `add_pull_request_comment` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 4.14**: Implement `get_pull_request_comments` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 4.15**: Create integration tests for branch and PR workflow
+  - **Role**: Full-Stack Developer
+- [ ] **Task 4.16**: Document branch and PR tools (usage, examples)
+  - **Role**: Technical Writer
+- [ ] **Task 4.17**: Conduct code review and address feedback
+  - **Role**: Full-Stack Developer
+- [ ] **Task 5.2**: Implement `trigger_pipeline` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 5.4**: Implement `get_pipeline_status` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 5.6**: Implement `list_pipelines` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 5.8**: Document pipeline tools (usage, parameters)
+  - **Role**: Technical Writer
+- [ ] **Task 6.2**: Implement `search_code` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 6.4**: Implement `search_work_items` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 6.6**: Implement `search_wiki` handler with tests
+  - **Role**: Full-Stack Developer
+- [ ] **Task 6.8**: Document search tools (usage, examples)
+  - **Role**: Technical Writer
+- [ ] **Task 7.1**: Create end-to-end tests for user story to pull request workflow
+  - **Role**: Full-Stack Developer
+- [ ] **Task 7.2**: Conduct security testing (credential handling, errors)
+  - **Role**: Security Specialist
+- [ ] **Task 7.3**: Optimize performance and fix bugs
+  - **Role**: Full-Stack Developer
+- [ ] **Task 7.4**: Finalize all documentation (setup, usage, troubleshooting)
+  - **Role**: Technical Writer
+- [ ] **Task 7.5**: Tag version and prepare for release (GitHub/npm)
+  - **Role**: Full-Stack Developer, Project Manager
