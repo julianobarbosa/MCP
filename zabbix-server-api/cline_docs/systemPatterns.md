@@ -31,10 +31,6 @@ flowchart TD
     MCP --> Core
     Core --> Data
     Core --> Integration
-
-    Cache --> Redis[Redis Cache]
-    RateLimit --> Redis
-    Auth --> Redis
 ```
 
 ## Core Design Patterns
@@ -96,18 +92,13 @@ sequenceDiagram
 sequenceDiagram
     participant Client
     participant RateLimiter
-    participant Redis
     participant API
 
     Client->>RateLimiter: Request
-    RateLimiter->>Redis: Check Limit
-
     alt Under Limit
-        Redis-->>RateLimiter: Allow
         RateLimiter->>API: Forward Request
         API-->>Client: Response
     else Over Limit
-        Redis-->>RateLimiter: Deny
         RateLimiter->>Client: Rate Limited
     end
 ```

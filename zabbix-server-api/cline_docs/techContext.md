@@ -7,7 +7,6 @@
 - MCP SDK (`@modelcontextprotocol/sdk`)
 - Requests library (HTTP client)
 - Pydantic (data validation)
-- Redis (caching and rate limiting)
 - Python-dotenv (environment management)
 
 ### Development Tools
@@ -24,11 +23,6 @@
 # Core installation
 poetry install
 
-# Redis setup
-docker run -d --name zabbix-cache \
-  -p 6379:6379 \
-  redis:alpine
-
 # Development dependencies
 poetry install --dev
 
@@ -42,11 +36,6 @@ pre-commit install
 ZABBIX_URL=http://your-zabbix-server/api_jsonrpc.php
 ZABBIX_USER=your-username
 ZABBIX_PASSWORD=your-password
-
-# Redis Configuration
-REDIS_HOST=localhost
-REDIS_PORT=6379
-REDIS_DB=0
 
 # Rate Limiting
 RATE_LIMIT_REQUESTS=100
@@ -70,56 +59,40 @@ TOKEN_CACHE_TTL=3600
 - Response time < 500ms
 - Memory usage < 256MB
 - Max concurrent connections: 100
-- Redis memory limit: 512MB
 - Rate limiting: 100 req/minute
 
 ### Security Requirements
 - Token-based authentication
 - Secure credential storage
-- Redis password protection
 - Request validation
 - Error sanitization
 
 ## Integration Points
 
-### Redis Integration
-```mermaid
-flowchart LR
-    Server[MCP Server] --> Cache[Cache Manager]
-    Server --> RateLimit[Rate Limiter]
-
-    Cache --> Redis[(Redis)]
-    RateLimit --> Redis
-
-    Redis --> TokenStore[Token Store]
-    Redis --> RateBuckets[Rate Buckets]
-    Redis --> DataCache[Data Cache]
-```
-
 ### Data Flow
 1. Request Reception
    - MCP tool invocation
    - Parameter validation
-   - Rate limit check (Redis)
-   - Cache lookup (Redis)
+   - Rate limit check
+   - Cache lookup
 
 2. Authentication
-   - Token validation (Redis)
+   - Token validation
    - Token refresh
    - Credential management
-   - Token caching (Redis)
+   - Token caching (local)
 
 3. API Interaction
    - Request transformation
    - API call execution
    - Response processing
-   - Cache update (Redis)
+   - Cache update
 
 4. Response Handling
    - Data validation
    - Error handling
    - Response formatting
-   - Rate limit update (Redis)
+   - Rate limit update
 
 ## Monitoring & Logging
 
@@ -155,11 +128,9 @@ LOGGING = {
 - Error rates
 - Token refresh events
 - Rate limit status
-- Redis memory usage
 
 ### Health Checks
 - API availability
-- Redis connectivity
 - Token validity
 - Memory usage
 - Rate limit status
@@ -169,7 +140,6 @@ LOGGING = {
 
 ### System Requirements
 - Python 3.8+
-- Redis 6.0+
 - 256MB RAM minimum
 - Network access to Zabbix server
 - Environment variable support
@@ -177,9 +147,6 @@ LOGGING = {
 ### Docker Support
 ```dockerfile
 FROM python:3.8-slim
-
-# Install Redis client
-RUN apt-get update && apt-get install -y redis-tools
 
 WORKDIR /app
 COPY . .
@@ -190,8 +157,6 @@ CMD ["python", "src/main.py"]
 
 ### Container Configuration
 - Memory limit: 512MB
-- Redis memory limit: 256MB
 - CPU limit: 1 core
 - Network: host networking
 - Restart policy: always
-- Volume: Redis persistence

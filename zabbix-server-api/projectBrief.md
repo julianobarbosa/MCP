@@ -1,130 +1,30 @@
-# Zabbix Server API for Model Context Protocol (MCP)
+# Roo Code Memory Bank: Project Brief
 
-## Project Overview
+**Maintain Project Context Across Sessions and Memory Resets for Consistent AI-Assisted Development**
 
-Create a comprehensive MCP server implementation for Zabbix monitoring system integration, enabling AI-powered monitoring and management capabilities.
+This guide will walk you through using the Roo Code Memory Bank system. This powerful system, enhanced by Roo Code's built-in context-preserving features, provides a robust solution for managing project context across development sessions and seamlessly handling Roo's periodic memory resets.  By implementing the Memory Bank, you will ensure that Roo Code remains consistently informed about your project, leading to more effective and reliable AI-assisted coding.
 
-### Core Purpose
-- Provide MCP-compatible interface to Zabbix monitoring system
-- Enable AI systems to manage and monitor Zabbix infrastructure
-- Automate monitoring tasks through standardized MCP tools
+**Understanding Roo Code's Built-in Context Features**
 
-## Technical Specifications
+Recent updates to Roo Code incorporate built-in features designed to preserve context *within a single VS Code workspace session*. These are valuable enhancements to your workflow:
 
-### API Integration
-1. Authentication
-   - Support for Zabbix API token-based authentication
-   - Secure credential management via environment variables
-   - Session handling and token renewal
+*   **Chat History Persistence:** Roo Code intelligently remembers your chat history within a VS Code workspace.  This means that if you close and reopen VS Code, or switch between files within the same project folder/workspace, your ongoing chat conversations are automatically restored, providing continuity within a session.
+*   **Workspace Awareness:** Roo Code is now deeply aware of your VS Code workspace environment, including open files and the overall project structure. This allows it to understand the codebase more effectively and provide more contextually relevant and accurate responses during your development session.
 
-2. Core Entities
-   - Hosts management (create, update, delete, query)
-   - Items and triggers
-   - Templates and host groups
-   - Monitoring data retrieval
-   - Event and alert management
+**Key Point: Built-in Features Enhance, But Don't Replace, the Core Need for the Memory Bank**
 
-3. Rate Limiting
-   - Implementation of request throttling
-   - Configurable rate limits
-   - Queue management for bulk operations
+While these built-in features significantly improve *in-session* context retention, they **do not eliminate** the fundamental need for the Roo Code Memory Bank. Roo Code still operates with periodic internal memory resets.  The Memory Bank system remains absolutely crucial for:
 
-### MCP Tools
+*   **Ensuring Persistence Across Roo's Memory Resets:**  Roo Code's internal memory can undergo resets even within an active VS Code session. The Memory Bank acts as your external, reliable long-term memory, guaranteeing context survival beyond these resets.
+*   **Building Long-Term Project Knowledge:** The Memory Bank provides a structured, well-documented repository for capturing and organizing vital project knowledge. This includes architectural decisions, key technical context, design patterns, and ongoing progress tracking – going far beyond simple chat history to create a comprehensive project knowledge base.
+*   **Establishing an Explicit Mode-Based Workflow:** The Memory Bank system defines clear and structured workflows for utilizing Roo Code's Architect, Code, and Ask modes. These workflows are specifically designed to actively manage and leverage project knowledge stored within the Memory Bank for each development phase.
+*   **Implementing Project-Specific Rules with `.clinerules`:** The Memory Bank system uniquely incorporates `.clinerules` files. These powerful files allow you to define and consistently enforce project-specific rules and coding patterns, a capability that Roo Code's built-in features alone cannot provide.
 
-1. Host Management
-   ```typescript
-   {
-     name: "create_host",
-     description: "Create a new host in Zabbix",
-     inputSchema: {
-       type: "object",
-       properties: {
-         host: { type: "string" },
-         name: { type: "string" },
-         interfaces: { type: "array" },
-         groups: { type: "array" }
-       }
-     }
-   }
-   ```
+**The Synergistic Power: Memory Bank and Roo Code's Built-in Features Working in Harmony**
 
-2. Monitoring Tools
-   - Get host status
-   - Retrieve monitoring data
-   - Manage triggers and alerts
-   - Template operations
+Think of the relationship between the Memory Bank and Roo Code's built-in features this way:
 
-## Implementation Requirements
+*   **Roo Code's built-in features:** Provide valuable *short-term* and *workspace-level* context retention, enhancing the fluidity and convenience of your immediate coding session. They are like short-term memory enhancements for Roo.
+*   **Memory Bank System:** Serves as Roo's *long-term* and *structured* persistent memory. It's your external, reliable "brain" for Roo, ensuring consistent project understanding that endures across sessions and memory resets, and providing a framework for organized project knowledge.
 
-### Core Dependencies
-- MCP SDK for server implementation
-- Zabbix API client library
-- Request handling and validation
-- Error management system
-
-### Security Considerations
-- Secure credential storage
-- API token management
-- Request validation and sanitization
-- Error handling without data exposure
-
-### Performance Requirements
-- Response time < 500ms for standard operations
-- Support for concurrent requests
-- Rate limiting to protect Zabbix server
-- Efficient data caching where applicable
-
-## Development Guidelines
-
-### Code Structure
-- Modular design for entity management
-- Clear separation of MCP and Zabbix logic
-- Comprehensive error handling
-- Type definitions for all components
-
-### Testing Requirements
-- Unit tests for all tools
-- Integration tests with Zabbix API
-- Performance benchmarking
-- Security testing
-
-## Project Timeline
-
-### Phase 1: Core Implementation
-1. Basic host management
-2. Authentication system
-3. Error handling
-4. Initial testing
-
-### Phase 2: Extended Features
-1. Additional entity support
-2. Monitoring tools
-3. Template management
-4. Performance optimization
-
-### Phase 3: Advanced Features
-1. Bulk operations
-2. Event management
-3. Advanced monitoring
-4. Documentation and examples
-
-## Success Metrics
-1. API Coverage
-   - Support for all core Zabbix operations
-   - Complete type definitions
-   - Comprehensive error handling
-
-2. Performance
-   - Response time targets
-   - Concurrent request handling
-   - Resource utilization
-
-3. Reliability
-   - Error handling effectiveness
-   - Token management reliability
-   - Rate limiting effectiveness
-
-4. Documentation
-   - API documentation
-   - Integration guides
-   - Example implementations
+By using them together, you unlock a truly powerful and robust development workflow.

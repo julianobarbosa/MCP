@@ -12,7 +12,6 @@ gantt
     Host Model            :done,    host,      2025-03-03, 2d
 
     section Current Phase
-    Redis Integration     :active,   redis,     2025-03-04, 4d
     Rate Limiting        :active,   rate,      2025-03-05, 3d
     Caching System       :active,   cache,     2025-03-06, 3d
 
@@ -43,26 +42,6 @@ gantt
 - [x] Error mapping
 
 ## In Progress
-
-### Redis Integration
-```mermaid
-flowchart LR
-    subgraph Progress
-        direction TB
-        C1[Container Setup] --> C2[Connection Pool]
-        C2 --> C3[Health Checks]
-        C3 --> C4[Persistence]
-    end
-
-    style C1 fill:#90EE90
-    style C2 fill:#90EE90
-    style C3 fill:#FFE4B5
-    style C4 fill:#FFB6C1
-```
-- [x] Redis container setup
-- [x] Connection pooling
-- [ ] Health monitoring
-- [ ] Persistence configuration
 
 ### Rate Limiting
 ```mermaid
@@ -107,17 +86,12 @@ flowchart LR
 ## Upcoming Work
 
 ### Priority Tasks
-1. Complete Redis integration
-   - Finish health monitoring
-   - Implement persistence
-   - Add failover support
-
-2. Finish rate limiting
+1. Finish rate limiting
    - Complete configuration system
    - Implement request queue
    - Add monitoring
 
-3. Complete caching system
+2. Complete caching system
    - Implement TTL management
    - Add invalidation rules
    - Set up cache warming
@@ -138,17 +112,12 @@ flowchart LR
 ## Known Issues
 
 ### Critical
-1. Redis Integration
-   - Need connection retry logic
-   - Memory monitoring required
-   - Backup strategy needed
-
-2. Rate Limiting
+1. Rate Limiting
    - Queue overflow handling
    - Circuit breaker implementation
    - Recovery procedures
 
-3. Caching
+2. Caching
    - Memory management
    - Invalidation coordination
    - Warm-up strategy
@@ -165,9 +134,7 @@ flowchart LR
    - Need performance metrics
 
 ## Next Actions
-1. Implement Redis health monitoring
-2. Complete rate limit configuration
-3. Add cache TTL management
-4. Create monitoring dashboard
-5. Document Redis operations
-6. Set up test environment
+1. Complete rate limit configuration
+2. Add cache TTL management
+3. Create monitoring dashboard
+4. Set up test environment
