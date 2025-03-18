@@ -34,7 +34,7 @@ flowchart TD
     Options --> A[Parallel Processing]
     Options --> B[Caching Layer]
     Options --> C[Resource Limits]
-    
+
     A --> Decision[Decision Needed]
     B --> Decision
     C --> Decision
@@ -63,7 +63,7 @@ flowchart TD
 
 ### 2. Dictionary Storage
 Current Approach: File-based storage
-Considering: 
+Considering:
 - SQLite for better atomic operations
 - Redis for improved performance
 - Hybrid approach for reliability

@@ -25,10 +25,10 @@ flowchart TD
     Git[Git Pre-commit] --> MCP[MCP Server]
     MCP --> Hooks[Pre-commit Hooks]
     MCP --> SpellCheck[Spell Check Service]
-    
+
     Hooks --> Results[Validation Results]
     SpellCheck --> Dictionary[Dictionary Management]
-    
+
     Results --> Git
     Dictionary --> Config[cspell Configuration]
 ```

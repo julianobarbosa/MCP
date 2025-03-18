@@ -21,11 +21,11 @@ flowchart TD
     Unit[Unit Tests] --> Integration[Integration Tests]
     Integration --> E2E[E2E Tests]
     E2E --> Performance[Performance Tests]
-    
+
     Unit --> Coverage{Coverage}
     Integration --> Coverage
     E2E --> Coverage
-    
+
     Coverage --> Report[Coverage Report]
 ```
 

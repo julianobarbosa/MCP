@@ -7,13 +7,13 @@ flowchart TD
     Client[Git Client] --> |pre-commit hook| MCP[MCP Server]
     MCP --> |validate| Runner[Check Runner]
     MCP --> |manage| Dict[Dictionary Manager]
-    
+
     Runner --> |execute| Hooks[Hook Registry]
     Dict --> |read/write| Store[Dictionary Store]
-    
+
     Hooks --> Results[Results Collector]
     Store --> Config[cspell Config]
-    
+
     Results --> |format| Response[Response Handler]
     Response --> Client
 ```

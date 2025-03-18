@@ -41,29 +41,29 @@ This document specifies improvements for parallel hook execution in the pre-comm
 
 To support flexible deployment and fine-tuning, the following configuration options can be set via environment variables or a configuration file (e.g., `config.json`):
 
-- **HOOK_CONCURRENCY:**  
+- **HOOK_CONCURRENCY:**
   - **Description:** Maximum number of hooks that can execute concurrently.
   - **Default:** `5`
   - **Note:** Increase for high-performance environments; decrease to conserve resources.
 
-- **HOOK_TIMEOUT:**  
+- **HOOK_TIMEOUT:**
   - **Description:** Maximum allowed time (in seconds) for each hook’s execution.
   - **Default:** `2`
   - **Note:** This can be adjusted for hooks that require a longer duration.
 
-- **LOG_LEVEL:**  
+- **LOG_LEVEL:**
   - **Description:** Logging verbosity (e.g., DEBUG, INFO, WARNING).
   - **Default:** `INFO`
   - **Note:** Set to DEBUG for detailed troubleshooting.
 
-- **CONFIG_RELOAD_INTERVAL:**  
+- **CONFIG_RELOAD_INTERVAL:**
   - **Description:** Interval (in seconds) to reload configuration settings dynamically.
   - **Default:** `300` (5 minutes)
   - **Benefit:** Enables dynamic tuning without “cold” restarts.
 
-- **ADVANCED_OPTIONS:**  
+- **ADVANCED_OPTIONS:**
   - **Description:** A JSON object to support future expansions (e.g., hook-specific overrides).
-  - **Example:** 
+  - **Example:**
     ```json
     {
       "scaling_factor": 1.5,
@@ -78,22 +78,22 @@ To support flexible deployment and fine-tuning, the following configuration opti
 
 For optimal performance under varying workloads, additional parameters can be introduced to fine-tune system behavior:
 
-- **DYNAMIC_SCALING_FACTOR:**  
+- **DYNAMIC_SCALING_FACTOR:**
   - **Description:** A multiplier to adjust the concurrency limit dynamically based on real-time performance metrics.
   - **Default:** `1.0`
   - **Usage:** A value greater than 1.0 increases concurrency, whereas less than 1.0 reduces it.
-  
-- **HOOK_PERFORMANCE_THRESHOLD:**  
+
+- **HOOK_PERFORMANCE_THRESHOLD:**
   - **Description:** A performance metric (e.g., average execution time) used as a threshold to trigger adjustments.
   - **Default:** `1.5` seconds
   - **Usage:** If the average execution time exceeds this threshold, the system may reduce concurrency or adjust timeouts.
 
-- **METRICS_COLLECTION_INTERVAL:**  
+- **METRICS_COLLECTION_INTERVAL:**
   - **Description:** Interval (in seconds) for collecting performance metrics.
   - **Default:** `60` seconds
   - **Benefit:** Provides data to inform dynamic adjustments and future optimizations.
 
-- **TIMEOUT_ADJUSTMENT_FACTOR:**  
+- **TIMEOUT_ADJUSTMENT_FACTOR:**
   - **Description:** Factor for adaptive timeout settings based on historical hook performance.
   - **Default:** `1.0`
   - **Usage:** If hooks consistently complete faster than the current timeout, this factor could be lowered to tighten performance.
