@@ -36,20 +36,20 @@ Incorporate a detailed authentication workflow based on the official [Zabbix API
 ## Authentication Workflow Overview (To be Included):
 
 ### Steps and Descriptions
-1. **Initiation of session**  
-   - Request: Contains user credentials (username/password).  
+1. **Initiation of session**
+   - Request: Contains user credentials (username/password).
    - Expected successful response: Auth token.
-2. **Handling authenticated requests**  
+2. **Handling authenticated requests**
    - Include authentication token from step 1.
-3. **Session termination**  
+3. **Session termination**
    - Request to logout and invalidate token.
-4. **Error handling scenarios**  
-   - Authentication failure (invalid credentials).  
+4. **Error handling scenarios**
+   - Authentication failure (invalid credentials).
    - Expired or invalid tokens with proper HTTP status responses.
-5. **Best practices for session lifecycle**  
-   - Implement session expiration timelines.  
+5. **Best practices for session lifecycle**
+   - Implement session expiration timelines.
    - Token renewal before expiration.
-6. **Security considerations**  
+6. **Security considerations**
    - Secure storage and management of tokens.
    - Brute-force and rate limiting protection.
 
