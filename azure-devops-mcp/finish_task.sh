@@ -49,11 +49,11 @@ fi
 echo "Creating pull request..."
 if command -v gh &> /dev/null; then
   PR_URL=$(gh pr create --title "$PR_TITLE" --body "$PR_DESCRIPTION" --base main --head "$CURRENT_BRANCH")
-  
+
   if [ $? -eq 0 ]; then
     echo "Pull request created successfully!"
     echo "PR URL: $PR_URL"
-    
+
     # Try to open the PR URL in the default browser
     if command -v xdg-open &> /dev/null; then
       xdg-open "$PR_URL" &> /dev/null &  # Linux
@@ -73,4 +73,4 @@ else
   echo "You can create a PR manually at: https://github.com/$(git config --get remote.origin.url | sed 's/.*github.com[:\/]\(.*\)\.git/\1/')/pull/new/$CURRENT_BRANCH"
 fi
 
-echo "Task completion workflow finished!" 
+echo "Task completion workflow finished!"

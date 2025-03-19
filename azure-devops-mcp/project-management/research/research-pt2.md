@@ -42,18 +42,18 @@ The workflow remains eight steps, with Step 7 refined to include the new tool:
 4. **AI Commits the Code to a New Branch**: `create_branch`, `push_changes` (or `create_or_update_file`)
 5. **AI Triggers a Pipeline to Test the Code**: `trigger_pipeline` (optional if auto-triggered)
 6. **AI Creates a Pull Request Linking It to the User Story**: `create_pull_request`
-7. **AI Waits for Pipeline to Pass and Then Merges the Pull Request**:  
-   - Tools: `get_pipeline_status`, `get_pull_request_comments` (new), `merge_pull_request`  
+7. **AI Waits for Pipeline to Pass and Then Merges the Pull Request**:
+   - Tools: `get_pipeline_status`, `get_pull_request_comments` (new), `merge_pull_request`
    - The AI uses `get_pipeline_status` to check build success and `get_pull_request_comments` to review feedback (e.g., “Pipeline passed” or “Needs fixes”). If both indicate approval, it calls `merge_pull_request`.
 8. **AI Updates the User Story to Reflect Completion**: `update_work_item`
 
 #### Identified Gaps and Additional Tools (Updated)
 The previous gap led to `add_pull_request_comment`. This research adds:
 
-- **Get Pull Request Comments**:  
-  - Tool: `get_pull_request_comments`  
-  - API: `GET https://dev.azure.com/{organization}/{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads`  
-  - Use: Fetches all comment threads on a pull request, enabling the AI to read reviewer feedback or pipeline status comments.  
+- **Get Pull Request Comments**:
+  - Tool: `get_pull_request_comments`
+  - API: `GET https://dev.azure.com/{organization}/{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads`
+  - Use: Fetches all comment threads on a pull request, enabling the AI to read reviewer feedback or pipeline status comments.
   - Example Response: Returns an array of threads, each with comments, authors, and timestamps.
 
 While `get_pull_request_comment` (for a single comment by ID) could be useful, it’s less urgent for the initial use case, as `get_pull_request_comments` covers the need to scan all feedback. This keeps the toolset lean while addressing the gap.

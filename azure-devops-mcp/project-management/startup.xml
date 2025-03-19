@@ -6,7 +6,7 @@
     <Step order="2">Read all files in the project-management/planning directory to understand the project architecture, features, and structure</Step>
     <Step order="3">Review the reference MCP server in project-management/reference/mcp-server to understand:
       - The server architecture and components from README.md
-      - Configuration in package.json and tsconfig.json 
+      - Configuration in package.json and tsconfig.json
       - Implementation patterns in src/ directory
       - Get a basic understanding of what we're trying to build by reviewing src/github/index.ts
       - Available tools and integrations
@@ -17,7 +17,7 @@
     <Step order="7">Read tdd-cycle.xml to understand the TDD cycle.</Step>
     <Step order="8">Start the research phase of TaskWorkflow.</Step>
   </InitialSetup>
-  
+
   <TaskWorkflow order="2">
     <Phase name="Research" order="1">
       <Step order="1">Research the selected task thoroughly</Step>
@@ -25,18 +25,18 @@
       <Step order="3">Break down the task into sub-tasks only if necessary (prefer simplicity)</Step>
       <Step order="4">If the task is straightforward, keep it as a single task</Step>
     </Phase>
-    
+
     <Phase name="Planning" order="2">
       <STOPPING_POINT order="1">Present your sub-tasks (if any) and approach for approval</STOPPING_POINT>
     </Phase>
-    
+
     <Phase name="Implementation" order="3">
       <Step order="1">Assume the role and persona of the team member assigned to the task</Step>
       <Step order="2">If multiple roles are involved, simulate pair/mob programming</Step>
       <Step order="3">Use Test-Driven Development for all coding tasks</Step>
       <Step order="4">Create any necessary readme.md files for documentation or reference</Step>
     </Phase>
-    
+
     <Phase name="Completion" order="4">
       <Step order="1">When the task is complete, move it from doing.md to project-management/task-management/done.md</Step>
       <STOPPING_POINT order="2">Present your work for review</STOPPING_POINT>
@@ -45,7 +45,7 @@
       <Step order="5">Wait for feedback before starting a new task</Step>
     </Phase>
   </TaskWorkflow>
-  
+
   <WorkingPrinciples>
     <Principle>Use the tree command when exploring directory structures</Principle>
     <Principle>Follow KISS (Keep It Stupid Simple) and YAGNI (You Aren't Gonna Need It) principles</Principle>

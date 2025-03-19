@@ -54,7 +54,7 @@ export async function createAuthenticatedClient(
 
 /**
  * Validates that a Personal Access Token has the correct format
- * 
+ *
  * @param pat Personal Access Token
  * @returns true if PAT has valid format, false otherwise
  */
@@ -67,4 +67,4 @@ export function isValidPatFormat(pat: string): boolean {
   // PATs are minimum 64 characters and typically have base64 pattern
   const base64Regex = /^[A-Za-z0-9+/=]+$/;
   return base64Regex.test(pat);
-} 
+}

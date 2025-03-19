@@ -29,4 +29,3 @@ The tech stack for the Azure DevOps MCP server is tailored to ensure compatibili
 - **GitHub Actions**: Automates continuous integration and deployment, including builds, tests, and releases.
 
 ---
-

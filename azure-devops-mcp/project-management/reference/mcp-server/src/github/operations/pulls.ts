@@ -130,7 +130,7 @@ export const MergePullRequestSchema = z.object({
 
 export const GetPullRequestFilesSchema = z.object({
   owner: z.string().describe("Repository owner (username or organization)"),
-  repo: z.string().describe("Repository name"), 
+  repo: z.string().describe("Repository name"),
   pull_number: z.number().describe("Pull request number")
 });
 
@@ -193,7 +193,7 @@ export async function listPullRequests(
   options: Omit<z.infer<typeof ListPullRequestsSchema>, 'owner' | 'repo'>
 ): Promise<z.infer<typeof GitHubPullRequestSchema>[]> {
   const url = new URL(`https://api.github.com/repos/${owner}/${repo}/pulls`);
-  
+
   if (options.state) url.searchParams.append('state', options.state);
   if (options.head) url.searchParams.append('head', options.head);
   if (options.base) url.searchParams.append('base', options.base);

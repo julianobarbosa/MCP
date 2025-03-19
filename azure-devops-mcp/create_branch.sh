@@ -34,4 +34,4 @@ if [ $? -eq 0 ]; then
 else
   echo "Failed to create branch '$branch_name'."
   exit 1
-fi 
+fi

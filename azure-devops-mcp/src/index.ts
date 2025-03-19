@@ -37,23 +37,23 @@ const server = new AzureDevOpsServer(config);
 async function runServer() {
   // Test the connection to Azure DevOps
   const connectionSuccessful = await server.testConnection();
-  
+
   if (!connectionSuccessful) {
     console.error('Error: Failed to connect to Azure DevOps API');
     process.exit(1);
   }
-  
+
   console.log('Successfully connected to Azure DevOps API');
   console.log(`Organization URL: ${config.organizationUrl}`);
-  
+
   if (config.defaultProject) {
     console.log(`Default Project: ${config.defaultProject}`);
   }
-  
+
   // Connect the server to the stdio transport
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  
+
   console.log('Azure DevOps MCP Server running on stdio');
 }
 

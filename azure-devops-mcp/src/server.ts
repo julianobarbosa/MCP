@@ -6,7 +6,7 @@ import { VERSION } from './config/version';
 
 /**
  * Azure DevOps MCP Server
- * 
+ *
  * Implements a Model Context Protocol server for Azure DevOps
  */
 export class AzureDevOpsServer {
@@ -14,37 +14,37 @@ export class AzureDevOpsServer {
   private config: AzureDevOpsConfig;
   private connection: azdev.WebApi | null = null;
   private serverInfo: { name: string, version: string };
-  
+
   /**
    * Create a new Azure DevOps MCP Server
-   * 
+   *
    * @param config The Azure DevOps configuration
    */
   constructor(config: AzureDevOpsConfig) {
     this.validateConfig(config);
     this.config = config;
-    
+
     this.serverInfo = {
       name: "azure-devops-mcp",
       version: VERSION
     };
-    
+
     // Initialize the MCP server
     this.server = new McpServer({
       name: this.serverInfo.name,
       version: this.serverInfo.version
     });
-    
+
     // Initialize the Azure DevOps connection
     this.initializeConnection();
-    
+
     // Register the tools
     this.registerTools();
   }
-  
+
   /**
    * Validate the Azure DevOps configuration
-   * 
+   *
    * @param config Configuration to validate
    * @throws Error if configuration is invalid
    */
@@ -80,7 +80,7 @@ export class AzureDevOpsServer {
       }
     }
   }
-  
+
   /**
    * Initialize the Azure DevOps API connection
    */
@@ -88,7 +88,7 @@ export class AzureDevOpsServer {
     const authHandler = azdev.getPersonalAccessTokenHandler(this.config.personalAccessToken);
     this.connection = new azdev.WebApi(this.config.organizationUrl, authHandler);
   }
-  
+
   /**
    * Register all tools with the MCP server
    */
@@ -97,7 +97,7 @@ export class AzureDevOpsServer {
     this.registerWorkItemTools();
     this.registerRepositoryTools();
   }
-  
+
   /**
    * Register project-related tools
    */
@@ -118,7 +118,7 @@ export class AzureDevOpsServer {
         };
       }
     );
-    
+
     // Get project details tool
     this.server.tool(
       "get_project",
@@ -138,7 +138,7 @@ export class AzureDevOpsServer {
       }
     );
   }
-  
+
   /**
    * Register work item-related tools
    */
@@ -162,7 +162,7 @@ export class AzureDevOpsServer {
         };
       }
     );
-    
+
     // Create work item tool
     this.server.tool(
       "create_work_item",
@@ -186,7 +186,7 @@ export class AzureDevOpsServer {
       }
     );
   }
-  
+
   /**
    * Register repository-related tools
    */
@@ -209,7 +209,7 @@ export class AzureDevOpsServer {
         };
       }
     );
-    
+
     // Get repository details tool
     this.server.tool(
       "get_repository",
@@ -230,10 +230,10 @@ export class AzureDevOpsServer {
       }
     );
   }
-  
+
   /**
    * Test the connection to Azure DevOps
-   * 
+   *
    * @returns A promise that resolves to true if the connection is successful
    */
   public async testConnection(): Promise<boolean> {
@@ -247,7 +247,7 @@ export class AzureDevOpsServer {
       console.log('Testing connection to:', this.config.organizationUrl);
       const locationApi = await this.connection.getLocationsApi();
       console.log('Successfully got location API, attempting to get resource areas...');
-      
+
       const areas = await locationApi.getResourceAreas();
       console.log('Successfully retrieved resource areas:', areas.length);
       return true;
@@ -263,28 +263,28 @@ export class AzureDevOpsServer {
       return false;
     }
   }
-  
+
   /**
    * Get the name of the server
-   * 
+   *
    * @returns The server name
    */
   public getName(): string {
     return this.serverInfo.name;
   }
-  
+
   /**
    * Get the version of the server
-   * 
+   *
    * @returns The server version
    */
   public getVersion(): string {
     return this.serverInfo.version;
   }
-  
+
   /**
    * Get all registered tools
-   * 
+   *
    * @returns Array of registered tools
    */
   public getTools(): Array<{name: string; description: string}> {
@@ -299,23 +299,23 @@ export class AzureDevOpsServer {
       { name: 'list_repositories', description: 'List all repositories' }
     ];
   }
-  
+
   /**
    * Connect to a transport
-   * 
+   *
    * @param transport The transport to connect to
    * @returns A promise that resolves when the connection is established
    */
   public async connect(transport: any): Promise<void> {
     // Start the transport
     transport.start();
-    
+
     // Set up message handling
     transport.onMessage(async (message: any) => {
       // Log that we received a message
       console.log('Received message:', message);
     });
-    
+
     return Promise.resolve();
   }
-} 
+}

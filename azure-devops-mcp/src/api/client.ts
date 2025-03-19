@@ -17,7 +17,7 @@ export interface AzureDevOpsClientConfig {
 
 /**
  * Azure DevOps Client
- * 
+ *
  * Provides access to Azure DevOps APIs
  */
 export class AzureDevOpsClient {
@@ -30,7 +30,7 @@ export class AzureDevOpsClient {
 
   /**
    * Get the authenticated Azure DevOps client
-   * 
+   *
    * @returns The authenticated WebApi client
    * @throws {AzureDevOpsAuthenticationError} If authentication fails
    */
@@ -46,8 +46,8 @@ export class AzureDevOpsClient {
           }
           // Otherwise, wrap it in an AzureDevOpsAuthenticationError
           throw new AzureDevOpsAuthenticationError(
-            error instanceof Error 
-              ? `Authentication failed: ${error.message}` 
+            error instanceof Error
+              ? `Authentication failed: ${error.message}`
               : 'Authentication failed: Unknown error'
           );
         }
@@ -58,7 +58,7 @@ export class AzureDevOpsClient {
 
   /**
    * Check if the client is authenticated
-   * 
+   *
    * @returns True if the client is authenticated
    */
   public async isAuthenticated(): Promise<boolean> {
@@ -73,7 +73,7 @@ export class AzureDevOpsClient {
 
   /**
    * Get the Core API
-   * 
+   *
    * @returns The Core API client
    * @throws {AzureDevOpsAuthenticationError} If authentication fails
    */
@@ -88,8 +88,8 @@ export class AzureDevOpsClient {
       }
       // Otherwise, wrap it in an AzureDevOpsAuthenticationError
       throw new AzureDevOpsAuthenticationError(
-        error instanceof Error 
-          ? `Failed to get Core API: ${error.message}` 
+        error instanceof Error
+          ? `Failed to get Core API: ${error.message}`
           : 'Failed to get Core API: Unknown error'
       );
     }
@@ -97,7 +97,7 @@ export class AzureDevOpsClient {
 
   /**
    * Get the Git API
-   * 
+   *
    * @returns The Git API client
    * @throws {AzureDevOpsAuthenticationError} If authentication fails
    */
@@ -112,8 +112,8 @@ export class AzureDevOpsClient {
       }
       // Otherwise, wrap it in an AzureDevOpsAuthenticationError
       throw new AzureDevOpsAuthenticationError(
-        error instanceof Error 
-          ? `Failed to get Git API: ${error.message}` 
+        error instanceof Error
+          ? `Failed to get Git API: ${error.message}`
           : 'Failed to get Git API: Unknown error'
       );
     }
@@ -121,7 +121,7 @@ export class AzureDevOpsClient {
 
   /**
    * Get the Work Item Tracking API
-   * 
+   *
    * @returns The Work Item Tracking API client
    * @throws {AzureDevOpsAuthenticationError} If authentication fails
    */
@@ -136,8 +136,8 @@ export class AzureDevOpsClient {
       }
       // Otherwise, wrap it in an AzureDevOpsAuthenticationError
       throw new AzureDevOpsAuthenticationError(
-        error instanceof Error 
-          ? `Failed to get Work Item Tracking API: ${error.message}` 
+        error instanceof Error
+          ? `Failed to get Work Item Tracking API: ${error.message}`
           : 'Failed to get Work Item Tracking API: Unknown error'
       );
     }
@@ -145,7 +145,7 @@ export class AzureDevOpsClient {
 
   /**
    * Get the Build API
-   * 
+   *
    * @returns The Build API client
    * @throws {AzureDevOpsAuthenticationError} If authentication fails
    */
@@ -160,8 +160,8 @@ export class AzureDevOpsClient {
       }
       // Otherwise, wrap it in an AzureDevOpsAuthenticationError
       throw new AzureDevOpsAuthenticationError(
-        error instanceof Error 
-          ? `Failed to get Build API: ${error.message}` 
+        error instanceof Error
+          ? `Failed to get Build API: ${error.message}`
           : 'Failed to get Build API: Unknown error'
       );
     }
@@ -169,7 +169,7 @@ export class AzureDevOpsClient {
 
   /**
    * Get the Test API
-   * 
+   *
    * @returns The Test API client
    * @throws {AzureDevOpsAuthenticationError} If authentication fails
    */
@@ -184,8 +184,8 @@ export class AzureDevOpsClient {
       }
       // Otherwise, wrap it in an AzureDevOpsAuthenticationError
       throw new AzureDevOpsAuthenticationError(
-        error instanceof Error 
-          ? `Failed to get Test API: ${error.message}` 
+        error instanceof Error
+          ? `Failed to get Test API: ${error.message}`
           : 'Failed to get Test API: Unknown error'
       );
     }
@@ -193,7 +193,7 @@ export class AzureDevOpsClient {
 
   /**
    * Get the Release API
-   * 
+   *
    * @returns The Release API client
    * @throws {AzureDevOpsAuthenticationError} If authentication fails
    */
@@ -208,8 +208,8 @@ export class AzureDevOpsClient {
       }
       // Otherwise, wrap it in an AzureDevOpsAuthenticationError
       throw new AzureDevOpsAuthenticationError(
-        error instanceof Error 
-          ? `Failed to get Release API: ${error.message}` 
+        error instanceof Error
+          ? `Failed to get Release API: ${error.message}`
           : 'Failed to get Release API: Unknown error'
       );
     }
@@ -217,7 +217,7 @@ export class AzureDevOpsClient {
 
   /**
    * Get the Task Agent API
-   * 
+   *
    * @returns The Task Agent API client
    * @throws {AzureDevOpsAuthenticationError} If authentication fails
    */
@@ -232,8 +232,8 @@ export class AzureDevOpsClient {
       }
       // Otherwise, wrap it in an AzureDevOpsAuthenticationError
       throw new AzureDevOpsAuthenticationError(
-        error instanceof Error 
-          ? `Failed to get Task Agent API: ${error.message}` 
+        error instanceof Error
+          ? `Failed to get Task Agent API: ${error.message}`
           : 'Failed to get Task Agent API: Unknown error'
       );
     }
@@ -241,7 +241,7 @@ export class AzureDevOpsClient {
 
   /**
    * Get the Task API
-   * 
+   *
    * @returns The Task API client
    * @throws {AzureDevOpsAuthenticationError} If authentication fails
    */
@@ -256,10 +256,10 @@ export class AzureDevOpsClient {
       }
       // Otherwise, wrap it in an AzureDevOpsAuthenticationError
       throw new AzureDevOpsAuthenticationError(
-        error instanceof Error 
-          ? `Failed to get Task API: ${error.message}` 
+        error instanceof Error
+          ? `Failed to get Task API: ${error.message}`
           : 'Failed to get Task API: Unknown error'
       );
     }
   }
-} 
+}

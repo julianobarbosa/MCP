@@ -51,4 +51,3 @@ The server is organized into distinct modules, each with a specific responsibili
 - **README.md**: Provides setup instructions, authentication setup, tool descriptions, and usage examples.
 - **Examples Folder**: Includes sample configurations and tool usage scenarios (e.g., integration with MCP clients like Claude Desktop).
 - **Troubleshooting Guide**: Addresses common issues, such as authentication errors or API rate limits.
-

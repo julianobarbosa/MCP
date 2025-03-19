@@ -9,13 +9,13 @@
 
 The GitHub reference server, part of the Model Context Protocol (MCP), is designed to let AI models, like those in chatbots or coding assistants, interact with GitHub. It allows them to do things like read or change files, manage repositories, search for code, and handle issues or pull requests. This is useful for automating tasks in software development, such as helping write and commit code.
 
-**How It Works**  
+**How It Works**
 To use it, you need to set it up with a GitHub Personal Access Token for security, which ensures the AI only does what you allow. For example, in Claude Desktop, you can configure it by running a command like `npx -y @modelcontextprotocol/servergithub` and providing your token. This lets the AI connect to GitHub and perform actions like creating a new issue or updating a file.
 
-**Unexpected Detail**  
+**Unexpected Detail**
 What’s interesting is that it supports 22 different tools, from simple file operations to advanced tasks like merging pull requests, making it a powerful tool for automating complex GitHub workflows, which you might not expect from a standard AI integration.
 
-**Security and Benefits**  
+**Security and Benefits**
 The server is built with safety in mind, like maintaining Git history and handling errors well, so it’s secure for developer use. It can save time by letting AI handle repetitive tasks, which is great for teams working on coding projects.
 
 For more details, check the [MCP servers repository](https://github.com/modelcontextprotocol/servers) or the [npm package](https://www.npmjs.com/package/@modelcontextprotocol/servergithub).

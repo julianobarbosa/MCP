@@ -29,7 +29,7 @@ describe('auth', () => {
     it('should create WebApi client with correct configuration', async () => {
       // Mock getLocationsApi() which is used to test the connection
       const mockGetLocationsApi = jest.fn().mockResolvedValue({});
-      
+
       MockWebApi.mockImplementation(() => ({
         getLocationsApi: mockGetLocationsApi
       } as any));
@@ -48,7 +48,7 @@ describe('auth', () => {
 
     it('should throw authentication error if API call fails', async () => {
       const mockGetLocationsApi = jest.fn().mockRejectedValue(new Error('API Error'));
-      
+
       MockWebApi.mockImplementation(() => ({
         getLocationsApi: mockGetLocationsApi
       } as any));
@@ -83,4 +83,4 @@ describe('auth', () => {
       expect(isValidPatFormat(validPat)).toBe(true);
     });
   });
-}); 
+});

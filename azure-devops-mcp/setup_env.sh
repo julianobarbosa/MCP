@@ -51,8 +51,8 @@ fi
 echo -e "\n${YELLOW}Step 1: Checking Azure CLI authentication...${NC}"
 if ! az account show &> /dev/null; then
     echo "Not logged in. Initiating login..."
-    az login --allow-no-subscriptions || { 
-        echo -e "${RED}Failed to login to Azure CLI.${NC}" 
+    az login --allow-no-subscriptions || {
+        echo -e "${RED}Failed to login to Azure CLI.${NC}"
         exit 1
     }
 else
@@ -81,7 +81,7 @@ else
     echo "$profile_response"
     echo
     public_alias=$(echo "$profile_response" | jq -r '.publicAlias')
-    
+
     if [ "$public_alias" == "null" ] || [ -z "$public_alias" ]; then
         echo -e "${RED}Failed to extract publicAlias from response.${NC}"
         echo "Full response was:"
@@ -93,10 +93,10 @@ else
         # Get organizations using the publicAlias
         echo "Fetching organizations..."
         orgs_result=$(az rest --method get --uri "https://app.vssps.visualstudio.com/_apis/accounts?memberId=$public_alias&api-version=6.0" --resource "499b84ac-1321-427f-aa17-267ca6975798")
-        
+
         # Extract organization names from the response using jq
         orgs=$(echo "$orgs_result" | jq -r '.value[].accountName')
-        
+
         if [ -z "$orgs" ]; then
             echo -e "${RED}No organizations found.${NC}"
             echo "Manually provide your organization name instead."
@@ -109,15 +109,15 @@ else
             IFS=$'\n'
             orgs_array=($orgs)
             IFS=$OLDIFS
-            
+
             for org in "${orgs_array[@]}"; do
                 echo "$i) $org"
                 ((i++))
             done
-            
+
             # Prompt for selection
             read -p "Select an organization (1-${#orgs_array[@]}): " org_selection
-            
+
             if [[ "$org_selection" =~ ^[0-9]+$ ]] && [ "$org_selection" -ge 1 ] && [ "$org_selection" -le "${#orgs_array[@]}" ]; then
                 org_name=${orgs_array[$((org_selection-1))]}
             else
@@ -139,11 +139,11 @@ default_project=""
 if [[ "$set_default_project" == "y" || "$set_default_project" == "Y" ]]; then
     # Configure az devops to use the selected organization
     az devops configure --defaults organization=$org_url
-    
+
     # List projects
     echo "Fetching projects from $org_name..."
     projects=$(az devops project list --query "value[].name" -o tsv)
-    
+
     if [ $? -ne 0 ] || [ -z "$projects" ]; then
         echo -e "${YELLOW}No projects found or unable to list projects.${NC}"
         read -p "Enter a default project name (leave blank to skip): " default_project
@@ -155,17 +155,17 @@ if [[ "$set_default_project" == "y" || "$set_default_project" == "Y" ]]; then
         IFS=$'\n'
         projects_array=($projects)
         IFS=$OLDIFS
-        
+
         for project in "${projects_array[@]}"; do
             echo "$i) $project"
             ((i++))
         done
-        
+
         echo "$i) Skip setting a default project"
-        
+
         # Prompt for selection
         read -p "Select a default project (1-$i): " project_selection
-        
+
         if [[ "$project_selection" =~ ^[0-9]+$ ]] && [ "$project_selection" -ge 1 ] && [ "$project_selection" -lt "$i" ]; then
             default_project=${projects_array[$((project_selection-1))]}
             echo -e "${GREEN}Using default project: $default_project${NC}"
@@ -222,7 +222,7 @@ EOF
         echo
         # Extract token from response using jq
         pat_token=$(echo "$pat_response" | jq -r '.patToken.token')
-        
+
         if [ "$pat_token" == "null" ] || [ -z "$pat_token" ]; then
             echo -e "${RED}Failed to extract token from response.${NC}"
             echo "Full response was:"
@@ -237,7 +237,7 @@ fi
 if [ "$pat_method" == "2" ]; then
     # Open browser for manual PAT creation
     pat_url="https://dev.azure.com/$org_name/_usersSettings/tokens"
-    
+
     echo -e "${YELLOW}Opening browser to create a PAT manually...${NC}"
     echo "Please create a PAT with the following scopes:"
     echo "- Code (read) - vso.code"
@@ -245,7 +245,7 @@ if [ "$pat_method" == "2" ]; then
     echo "- Work items (read) - vso.work"
     echo "- Project and Team (read) - vso.project"
     echo "- User profile (read) - vso.profile"
-    
+
     # Try to open browser using various commands
     if command -v xdg-open &> /dev/null; then
         xdg-open "$pat_url" &> /dev/null &
@@ -257,7 +257,7 @@ if [ "$pat_method" == "2" ]; then
         echo -e "${YELLOW}Could not open browser automatically.${NC}"
         echo "Please visit: $pat_url"
     fi
-    
+
     echo -e "\nAfter creating the PAT, copy it and paste it here:"
     read -p "Enter your PAT: " pat_token
 fi
@@ -327,4 +327,4 @@ echo "You can now run your Azure DevOps MCP Server with:"
 echo "  npm run dev"
 echo
 echo "You can also run integration tests with:"
-echo "  npm run test:integration" 
+echo "  npm run test:integration"

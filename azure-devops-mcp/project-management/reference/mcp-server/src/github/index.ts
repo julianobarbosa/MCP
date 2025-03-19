@@ -41,7 +41,7 @@ const server = new Server(
 
 function formatGitHubError(error: GitHubError): string {
   let message = `GitHub API Error: ${error.message}`;
-  
+
   if (error instanceof GitHubValidationError) {
     message = `Validation Error: ${error.message}`;
     if (error.response) {

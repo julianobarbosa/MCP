@@ -9,20 +9,20 @@
       - Attempted to connect to our server with the MCP inspector
       - Received error: "TypeError: transport.onMessage is not a function at AzureDevOpsServer.connect"
       - Root cause: We're incorrectly implementing the MCP server protocol
-    
+
     - **What we can learn from the GitHub implementation**:
       - GitHub implementation in `project-management/reference/mcp-server/src/github/index.ts` shows the correct pattern
       - They directly use the `Server` class from the SDK rather than creating a custom class
       - They register handlers using `server.setRequestHandler()` for specific request schemas
       - They have a clear pattern for tool implementation and error handling
-    
+
     - **Key differences in implementation**:
       - GitHub uses `import { Server } from "@modelcontextprotocol/sdk/server/index.js"`
       - They register request handlers with `server.setRequestHandler(ListToolsRequestSchema, async () => {...})`
       - Tool implementations follow a switch/case pattern based on the tool name
       - They connect to the transport using `await server.connect(transport)`
       - Our implementation attempts to handle transport messages directly which is incorrect
-    
+
     - **Learning resources**:
       - Reference implementation in `project-management/reference/mcp-server/`
       - MCP SDK documentation

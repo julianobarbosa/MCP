@@ -166,4 +166,4 @@ describe('Azure DevOps Errors', () => {
       expect(formatAzureDevOpsError(booleanError)).toBe('Unknown: Unknown error');
     });
   });
-}); 
+});

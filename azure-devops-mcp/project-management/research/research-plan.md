@@ -80,8 +80,8 @@ These tasks are structured to be completed sequentially, providing a clear path 
 ---
 
 ### Plan Summary
-- **Tasks**: 7 targeted research steps.  
-- **Time Estimate**: 1–2 hours per task, totaling 7–14 hours.  
+- **Tasks**: 7 targeted research steps.
+- **Time Estimate**: 1–2 hours per task, totaling 7–14 hours.
 - **Next Steps**: Once these tasks are complete, you’ll have the knowledge to start prototyping the server, beginning with core functionality and expanding from there.
 
 This plan keeps research focused and efficient, giving you a strong foundation to build your Azure DevOps MCP server without getting lost in the weeds. If you’d like to tweak any tasks or add specific areas of focus, just let me know!

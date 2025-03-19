@@ -38,51 +38,51 @@ The use case involves an AI, such as one integrated with Claude Desktop, autonom
 #### Use Case Steps and Tool Mapping
 The use case is broken into eight steps, each mapped to specific tools from the server’s toolset. The mapping is as follows:
 
-1. **User Provides a Request or User Story**:  
+1. **User Provides a Request or User Story**:
    - This step is an input to the AI, requiring no server tool. The AI receives the user story, such as “Add login feature,” and prepares to act.
 
-2. **AI Creates a New User Story**:  
-   - Tool: `create_work_item`  
-   - API: `POST https://dev.azure.com/{organization}/{project}/_apis/Wit/WorkItems`  
+2. **AI Creates a New User Story**:
+   - Tool: `create_work_item`
+   - API: `POST https://dev.azure.com/{organization}/{project}/_apis/Wit/WorkItems`
    - The AI uses this tool to create a new work item, such as a user story, with fields like title and description, setting the foundation for the task.
 
-3. **AI Generates Code**:  
+3. **AI Generates Code**:
    - No tool needed; this is handled internally by the AI. The AI generates code based on the user story, such as implementing a login feature, which it will commit later.
 
-4. **AI Commits the Code to a New Branch**:  
-   - Tools: `create_branch` and `push_changes` (for multiple files) or `create_or_update_file` (for a single file)  
-   - API for `create_branch`: `POST https://dev.azure.com/{organization}/{project}/_apis/Git/Repositories/{repositoryId}/refs` (creates a new branch ref)  
-   - API for `push_changes`: `POST https://dev.azure.com/{organization}/{project}/_apis/Git/Repositories/{repositoryId}/Commits` (creates a commit with multiple file changes)  
-   - API for `create_or_update_file`: `PUT https://dev.azure.com/{organization}/{project}/_apis/Git/Repositories/{repositoryId}/Files/{path}` (creates or updates a file, auto-committing)  
+4. **AI Commits the Code to a New Branch**:
+   - Tools: `create_branch` and `push_changes` (for multiple files) or `create_or_update_file` (for a single file)
+   - API for `create_branch`: `POST https://dev.azure.com/{organization}/{project}/_apis/Git/Repositories/{repositoryId}/refs` (creates a new branch ref)
+   - API for `push_changes`: `POST https://dev.azure.com/{organization}/{project}/_apis/Git/Repositories/{repositoryId}/Commits` (creates a commit with multiple file changes)
+   - API for `create_or_update_file`: `PUT https://dev.azure.com/{organization}/{project}/_apis/Git/Repositories/{repositoryId}/Files/{path}` (creates or updates a file, auto-committing)
    - The research confirmed that `create_or_update_file` can create a branch if it doesn’t exist by specifying the branch name, but for clarity and batch operations, `create_branch` followed by `push_changes` is preferred for multiple files. For example, the AI creates a branch “feature/login” and commits multiple files in one go using `push_changes`.
 
-5. **AI Triggers a Pipeline to Test the Code**:  
-   - Tool: `trigger_pipeline`  
-   - API: `POST https://dev.azure.com/{organization}/{project}/_apis/Build/Builds`  
+5. **AI Triggers a Pipeline to Test the Code**:
+   - Tool: `trigger_pipeline`
+   - API: `POST https://dev.azure.com/{organization}/{project}/_apis/Build/Builds`
    - The AI can manually trigger a build pipeline to test the code. However, research suggests that in many setups, pipelines are configured to trigger automatically on pull request creation, potentially making this step optional. For generality, the tool is retained.
 
-6. **AI Creates a Pull Request Linking It to the User Story**:  
-   - Tool: `create_pull_request`  
-   - API: `POST https://dev.azure.com/{organization}/{project}/_apis/Git/PullRequests`  
+6. **AI Creates a Pull Request Linking It to the User Story**:
+   - Tool: `create_pull_request`
+   - API: `POST https://dev.azure.com/{organization}/{project}/_apis/Git/PullRequests`
    - The AI submits a pull request, specifying the source and target branches (e.g., “feature/login” to “main”), and links it to the user story by including `workItemIds` in the request body, ensuring traceability.
 
-7. **AI Waits for Pipeline to Pass and Then Merges the Pull Request**:  
-   - Tools: `get_pipeline_status` and `merge_pull_request`  
-   - API for `get_pipeline_status`: `GET https://dev.azure.com/{organization}/{project}/_apis/Build/Builds/{buildId}`  
-   - API for `merge_pull_request`: `PATCH https://dev.azure.com/{organization}/{project}/_apis/Git/PullRequests/{pullRequestId}/merge`  
+7. **AI Waits for Pipeline to Pass and Then Merges the Pull Request**:
+   - Tools: `get_pipeline_status` and `merge_pull_request`
+   - API for `get_pipeline_status`: `GET https://dev.azure.com/{organization}/{project}/_apis/Build/Builds/{buildId}`
+   - API for `merge_pull_request`: `PATCH https://dev.azure.com/{organization}/{project}/_apis/Git/PullRequests/{pullRequestId}/merge`
    - The AI checks the pipeline status to ensure it passed, which may require periodic calls to `get_pipeline_status` due to the asynchronous nature of pipeline runs. If passed, the AI merges the pull request. Research notes that waiting for pipeline completion might be handled externally by the AI, as MCP tools are expected to be quick, suggesting a delay or polling strategy.
 
-8. **AI Updates the User Story to Reflect Completion**:  
-   - Tool: `update_work_item`  
-   - API: `PATCH https://dev.azure.com/{organization}/{project}/_apis/Wit/WorkItems/{id}`  
+8. **AI Updates the User Story to Reflect Completion**:
+   - Tool: `update_work_item`
+   - API: `PATCH https://dev.azure.com/{organization}/{project}/_apis/Wit/WorkItems/{id}`
    - The AI updates the work item’s state, such as setting it to “Done,” or adds a comment indicating completion, closing the workflow.
 
 #### Identified Gaps and Additional Tools
 During mapping, a gap was identified for handling edge cases, particularly when the pipeline fails or conflicts arise. The following new tool was added:
 
-- **Add Pull Request Comment**:  
-  - Tool: `add_pull_request_comment`  
-  - API: Azure DevOps Pull Request Threads API, likely `POST https://dev.azure.com/{organization}/{project}/_apis/Git/PullRequests/{pullRequestId}/threads`  
+- **Add Pull Request Comment**:
+  - Tool: `add_pull_request_comment`
+  - API: Azure DevOps Pull Request Threads API, likely `POST https://dev.azure.com/{organization}/{project}/_apis/Git/PullRequests/{pullRequestId}/threads`
   - This tool allows the AI to comment on the pull request, such as notifying about pipeline failures or conflicts, enhancing communication in the workflow.
 
 This addition ensures the server can handle scenarios where the pipeline fails, enabling the AI to comment on the pull request and potentially leave it for human intervention.
@@ -104,16 +104,16 @@ This list ensures all use case steps are covered, with additional tools for edge
 #### Edge Cases and Considerations
 Several edge cases were considered to validate feasibility:
 
-1. **Pipeline Failure**:  
+1. **Pipeline Failure**:
    - If `get_pipeline_status` indicates failure, the AI can use `add_pull_request_comment` to notify about the failure, potentially closing the pull request or leaving it for human review. This requires robust error handling in the tools.
 
-2. **Pull Request Conflicts**:  
+2. **Pull Request Conflicts**:
    - If `merge_pull_request` fails due to conflicts, the AI needs to handle the error, possibly by commenting via `add_pull_request_comment` and resolving conflicts manually, which is complex and may require human intervention. For now, the server assumes no conflicts or handles them externally.
 
-3. **User Story Duplication**:  
+3. **User Story Duplication**:
    - If a similar work item exists, the AI can use `list_work_items` or `search_work_items` to check, but for simplicity, the use case assumes unique user stories. This suggests potential for future refinement.
 
-4. **Permissions Issues**:  
+4. **Permissions Issues**:
    - If API calls fail due to insufficient permissions (e.g., PAT lacks write access), error handling in each tool ensures the AI receives clear feedback, maintaining reliability.
 
 These considerations ensure the server is robust, with tools like `add_pull_request_comment` addressing communication needs in edge cases.
@@ -121,13 +121,13 @@ These considerations ensure the server is robust, with tools like `add_pull_requ
 #### Workflow Diagram Description
 The workflow can be described as follows, aligning with the use case steps:
 
-1. User inputs a user story request to the AI.  
-2. AI calls `create_work_item` to create the user story.  
-3. AI generates code internally.  
-4. AI calls `create_branch` to create a new branch, then `push_changes` to commit multiple files, or `create_or_update_file` for a single file.  
-5. AI calls `create_pull_request`, linking to the user story, triggering the pipeline (assumed automatic).  
-6. AI periodically calls `get_pipeline_status` to wait for completion, then, if passed, calls `merge_pull_request`.  
-7. AI calls `update_work_item` to mark the user story as completed.  
+1. User inputs a user story request to the AI.
+2. AI calls `create_work_item` to create the user story.
+3. AI generates code internally.
+4. AI calls `create_branch` to create a new branch, then `push_changes` to commit multiple files, or `create_or_update_file` for a single file.
+5. AI calls `create_pull_request`, linking to the user story, triggering the pipeline (assumed automatic).
+6. AI periodically calls `get_pipeline_status` to wait for completion, then, if passed, calls `merge_pull_request`.
+7. AI calls `update_work_item` to mark the user story as completed.
 8. For edge cases, if the pipeline fails, AI calls `add_pull_request_comment` to notify on the pull request.
 
 This diagram ensures the sequence is clear, with tools supporting each step.
